@@ -23,10 +23,6 @@ const users = [
 app.use('/', router);
 app.use('/public', express.static(`${__dirname}/public`));
 
-app.use((req, res) => {
-  res.status(404).redirect('/public/404.html');
-});
-
 router.use('/', bodyParser.urlencoded({ extended: false }));
 router.use('/', bodyParser.json());
 
@@ -50,6 +46,10 @@ router.use('/api', (req, res) => {
   res.json(req.query);
 });
 
+app.use((req, res) => {
+  // res.status(404).redirect('/public/404.html');
+  res.status(404).send('<h1>404: Page Not Found</h1>');
+});
 
 app.listen(3000, () => {
   console.log('Example app listening on port 3000!');
