@@ -22,8 +22,9 @@ const users = [
 
 app.use('/', router);
 app.use('/public', express.static(`${__dirname}/public`));
+
 app.use((req, res) => {
-  res.status(404).send('Sorry cant find that!');
+  res.status(404).redirect('/public/404.html');
 });
 
 router.use('/', bodyParser.urlencoded({ extended: false }));
