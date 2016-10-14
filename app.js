@@ -21,13 +21,10 @@ const users = [
 ];
 
 app.use('/', router);
+app.use('/public', express.static(`${__dirname}/public`));
 
 router.use('/', bodyParser.urlencoded({ extended: false }));
 router.use('/', bodyParser.json());
-
-// router.use('/', (req, res) => {
-//   res.send('Route use msg');
-// });
 
 router.get('/', (req, res) => {
   res.send('<h1>首頁</h1>');
