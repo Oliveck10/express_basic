@@ -9,7 +9,6 @@ module.exports = {
     rules: {
       'no-console': 0,
       'no-else-return': 0,
-      'no-func-names': 0,
-      
+      'new-cap': 0,
     },
 };
