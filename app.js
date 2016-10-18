@@ -1,8 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const app = express();
-const router = express.Router();
+const app = express(); // main application
+const router = express.Router(); // homepage router
+const api = express.Router(); // api router
 
 // user data (the json object which shoud be get from the backend api)
 const users = [
@@ -19,10 +20,11 @@ const users = [
 ];
 
 app.use('/', router);
-app.use('/public', express.static(`${__dirname}/public`));
+app.use('/', bodyParser.urlencoded({ extended: false }));
+app.use('/', bodyParser.json());
 
-router.use('/', bodyParser.urlencoded({ extended: false }));
-router.use('/', bodyParser.json());
+app.use('/api', api);
+app.use('/public', express.static(`${__dirname}/public`));
 
 router.get('/', (req, res) => {
   res.send('<h1>首頁</h1>');
@@ -32,15 +34,15 @@ router.post('/', (req, res) => {
   res.send('Route post msg');
 });
 
-router.post('/api/body', (req, res) => {
+api.post('/body', (req, res) => {
   res.send(JSON.stringify(req.body));
 });
 
-router.use('/api/user/:id', (req, res) => {
+api.get('/users/:id', (req, res) => {
   res.json(users[req.params.id - 1]);
 });
 
-router.use('/api', (req, res) => {
+api.get('/query', (req, res) => {
   res.json(req.query);
 });
 
